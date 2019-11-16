@@ -1,0 +1,24 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if employee %}
+<h3>Employee Details</h3>
+<hr>
+<table>
+  
+    <tr><td><b>Employee Id</b></td><td>{{employee.employee_id}}</td></tr>
+    <tr><td><b>Full Name</b></td><td>{{employee.full_name}}</td></tr>
+    <tr><td><b>First Name</b></td><td>{{employee.first_name}}</td></tr>
+    <tr><td><B>Last Name</B></td><td>{{employee.last_name}}</td></tr>
+    <tr><td><b>Email</b></td><td>{{employee.email}}</td></tr>
+    <tr><td><b>Phone Number</b></td><td>{{employee.phone_number}}</td></tr>
+    <tr><td><b>Address</b></td><td>{{employee.address}}</td></tr>
+    </tr>
+   
+  </table>
+
+{% else %}
+  <p>You dont have any employee</p>
+{% endif %}
+{% endblock %}

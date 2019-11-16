@@ -1,0 +1,31 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if all_teams %}
+<h3>Teams</h3>
+<hr>
+<table>
+    <tr>
+      <th>Team Id</th>
+      <th>Team Name</th>
+      <th>Team Leader</th>
+      <th>Start Date</th>
+      <th>Team Goal</th>
+    </tr>
+    {% for team in all_teams %}
+    <tr onclick="window.location='/teamwork/teams/{{ team.id }}';">
+        <td>{{team.team_id}}</td>
+        <td>{{team.team_name}}</td>
+        <td>{{team.leader.employee_id}}</td>
+        <td>{{team.start_date}}</td>
+        <td style="padding-left: 40px;"><a href="/teamwork/teams/goals/{{team.id}}"><i class="fa fa-eye" aria-hidden="false"></i></a></td>
+    
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>You dont have any team</p>
+{% endif %}
+{% endblock %}

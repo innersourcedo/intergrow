@@ -1,0 +1,29 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if team_goals %}
+<h3>Teams</h3>
+<hr>
+<table>
+    <tr>
+      <th>Goal Discription</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Goal Progress</th>
+    </tr>
+    {% for goal in team_goals %}
+    <tr>
+        <td>{{goal.goal_discription}}</td>
+        <td>{{goal.start_date}}</td>
+        <td>{{goal.end_date}}</td>
+        <td style="padding-left: 40px;"><a href="/teamwork/teams/goals/progress/{{goal.id}}"><i class="fa fa-eye" aria-hidden="false"></i></a></td>
+    
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>Team dont have any team goals</p>
+{% endif %}
+{% endblock %}

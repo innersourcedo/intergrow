@@ -1,0 +1,30 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if team_employees %}
+<h3>Team Employees</h3>
+<hr>
+<table>
+    <tr>
+      <th>Employee Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Role</th>
+      <th>Involved Date</th>
+    </tr>
+    {% for employee in team_employees %}
+    <tr>
+        <td>{{employee.employee.employee_id}}</td>
+        <td>{{employee.employee.first_name}}</td>
+        <td>{{employee.employee.last_name}}</td>
+        <td>{{employee.role}}</td>
+        <td>{{employee.involved_date}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>Team dont have any employee</p>
+{% endif %}
+{% endblock %}

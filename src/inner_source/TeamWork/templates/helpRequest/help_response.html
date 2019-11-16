@@ -1,0 +1,26 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if all_helps_request_response %}
+<h3>Help Requests Response</h3>
+<hr>
+<table>
+    <tr>
+      <th>Employee Id</th>
+      <th>Help Discription</th>
+      <th>Post Date</th>
+    </tr>
+    {% for help in all_helps_request_response %}
+    <tr>
+        <td>{{help.mentor.employee_id}}</td>
+        <td>{{help.response_discription}}</td>
+        <td>{{help.response_date}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>No any Help Request</p>
+{% endif %}
+{% endblock %}

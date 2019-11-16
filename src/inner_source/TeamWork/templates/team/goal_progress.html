@@ -1,0 +1,24 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if goal_progress %}
+<h3>Goal Progress</h3>
+<hr>
+<table>
+    <tr>
+      <th>Progress Discription</th>
+      <th>End Date</th>
+    </tr>
+    {% for goal in goal_progress %}
+    <tr>
+        <td>{{goal.progress_discription}}</td>
+        <td>{{goal.progress_date}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>Team dont have any team goals</p>
+{% endif %}
+{% endblock %}

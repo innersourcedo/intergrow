@@ -1,0 +1,26 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if all_helps_request %}
+<h3>Help Requests</h3>
+<hr>
+<table>
+    <tr>
+      <th>Employee Id</th>
+      <th>Help Discription</th>
+      <th>Post Date</th>
+    </tr>
+    {% for help in all_helps_request %}
+    <tr onclick="window.location='/teamwork/requesthelps/response/{{ help.id }}';">
+        <td>{{help.mentee.employee_id}}</td>
+        <td>{{help.help_discription}}</td>
+        <td>{{help.help_date}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>No any Help Request</p>
+{% endif %}
+{% endblock %}
