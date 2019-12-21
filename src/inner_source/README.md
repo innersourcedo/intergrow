@@ -20,3 +20,7 @@ python manage.py createsuperuser
 admin
 ### Password
 admin321
+
+## Steps to migrate DB changes after model changes
+python manage.py makemigrations
+python manage.py migrate
