@@ -1,0 +1,26 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if all_organization %}
+<h3>Organization</h3>
+<hr>
+<table>
+    <tr>
+      <th>Organization Id</th>
+      <th>Organization Name</th>
+      <th>Departments</th>
+      <th>Team</th>
+    </tr>
+    {% for team in all_organization %}
+    <tr onclick="window.location='/teamwork/organization/{{ organization.id }}';">
+        <td>{{organization.organization_id}}</td>
+        <td>{{organization.organization_name}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>You dont have any Organization</p>
+{% endif %}
+{% endblock %}

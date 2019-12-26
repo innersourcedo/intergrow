@@ -1,0 +1,21 @@
+{% extends 'teamwork/base.html' %}
+
+{% block main_content %}
+
+{% if department %}
+<h3>Employee Details</h3>
+<hr>
+<table>
+  
+    <tr><td><b>Department Id</b></td><td>{{department.department_id}}</td></tr>
+    <tr><td><b>Department Name</b></td><td>{{department.department_name}}</td></tr>
+    <tr><td><b>Description</b></td><td>{{department.description}}</td></tr>
+    <tr><td><B>Teams</B></td><td>{{department.team}}</td></tr>
+    </tr>
+   
+  </table>
+
+{% else %}
+  <p>You dont have any department</p>
+{% endif %}
+{% endblock %}

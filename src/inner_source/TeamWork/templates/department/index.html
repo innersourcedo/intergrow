@@ -1,0 +1,26 @@
+{% extends 'teamwork/base.html' %}
+{% block main_content %}
+
+{% if all_employees %}
+<h3>Employees</h3>
+<hr>
+<table>
+    <tr>
+      <th>Department Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Teams</th>
+    </tr>
+    {% for department in all_department %}
+    <tr onclick="window.location='/teamwork/department/{{ department.id }}';">
+        <td>{{department.department_id}}</td>
+        <td>{{department.department_name}}</td>
+        <td>{{department.Teams}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% else %}
+  <p>You dont have any department</p>
+{% endif %}
+{% endblock %}
