@@ -13,5 +13,7 @@ urlpatterns = [
 
     path('teamwork/requesthelps/' , views.requestHelps , name = 'requestHelps'),
     path('teamwork/requesthelps/response/<int:help_id>' ,views.requestHelpResponse , name = 'requestHelpResponse'),
+
+    path('teamwork/organization', views.index , name = 'index')
 ]
 

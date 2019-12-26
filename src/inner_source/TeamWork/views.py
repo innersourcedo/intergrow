@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Employee, Team ,TeamEmployee ,TeamGoal , GoalProgress , Help , Response
+from .models import Employee, Team ,TeamEmployee ,TeamGoal , GoalProgress , Help , Response, Organization , Department , Hierarchy , OrgRole
 
 def index(request):
     return render(request , 'index.html')
@@ -35,3 +35,7 @@ def requestHelps(request):
 def requestHelpResponse(request, help_id):
     all_helps_request_response = Response.objects.filter(help_request__id__contains = help_id)
     return render(request , 'helpRequest/help_response.html', {'all_helps_request_response' : all_helps_request_response})
+
+def organization(request, organization_id):
+    all_organization = Organization.objects.all()
+    return render(request , 'organization/index.html' , {'all_organization' : all_organization})
