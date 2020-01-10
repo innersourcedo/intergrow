@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
+from .controller import TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController, TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController, OrgRoleController, UserController
 
 urlpatterns = [
+# url deal with templates
     path('', views.index , name = 'index'),
     path('teamwork/employees/' , views.employees , name = 'employees'),
     path('teamwork/employees/<int:employee_id>' , views.employeeDiscription, name = 'employeeDiscription'),
@@ -14,6 +16,76 @@ urlpatterns = [
     path('teamwork/requesthelps/' , views.requestHelps , name = 'requestHelps'),
     path('teamwork/requesthelps/response/<int:help_id>' ,views.requestHelpResponse , name = 'requestHelpResponse'),
 
-    path('teamwork/organization', views.index , name = 'index')
+# APIs
+# class-based view ==> APIView wrapper used
+    path('employee/', EmployeeController.EmployeeList.as_view()),
+    path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
+
+    path('team/', TeamController.TeamList.as_view()),
+    path('team/<int:pk>', TeamController.TeamDetail.as_view()),
+
+    path('help/', HelpController.HelpList.as_view()),
+    path('help/<int:pk>', HelpController.HelpDetail.as_view()),
+
+    path('response/', ResponseController.ResponseList.as_view()),
+    path('response/<int:pk>', ResponseController.ResponseDetail.as_view()),
+
+    path('team_employee/', TeamEmployeeController.TeamEmployeeList.as_view()),
+    path('team_employee/<int:pk>', TeamEmployeeController.TeamEmployeeDetail.as_view()),
+
+    path('team_goal/', TeamGoalController.TeamGoalList.as_view()),
+    path('team_goal/<int:pk>', TeamGoalController.TeamGoalDetail.as_view()),
+    
+    path('goal_progress/', GoalProgressController.GoalProgressList.as_view()),
+    path('goal_progress/<int:pk>', GoalProgressController.GoalProgressDetail.as_view()),
+
+    path('organization/', OrganizationController.OrganizationList.as_view()),
+    path('organization/<int:pk>', OrganizationController.OrganizationDetail.as_view()),
+ 
+    path('department/', DepartmentController.DepartmentList.as_view()),
+    path('department/<int:pk>', DepartmentController.DepartmentDetail.as_view()),
+
+    path('hierarchy/', HierarchyController.HierarchyList.as_view()),
+    path('hierarchy/<int:pk>', HierarchyController.HierarchyDetail.as_view()),
+
+    path('org_role/', OrgRoleController.OrgRoleList.as_view()),
+    path('org_role/<int:pk>', OrgRoleController.OrgRoleDetail.as_view()),
+
+    # user authontication/********************************************
+    # path('user/', UserController.UserList.as_view()),
+    # path('user/<int:pk>', UserController.UserDetail.as_view()),
+    
 ]
 
+
+# login ****************************************************************************/
+from django.conf.urls import include
+
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
+]
+# /******************************************************/
+
+
+# url suffixes*********************************************************************/
+# http http://127.0.0.1:8000/snippets/ Accept:application/json
+# http http://127.0.0.1:8000/snippets/ Accept:text/html 
+# # POST using form data
+# http --form POST http://127.0.0.1:8000/snippets/ code="print(123)"
+
+# url suffixed for crud operations
+from rest_framework.urlpatterns import format_suffix_patterns
+urlpatterns = format_suffix_patterns(urlpatterns)
+# /***************************************************/
+
+# Using Routers/*********************************************************************/
+from rest_framework.routers import DefaultRouter
+
+# Create a router and register our viewsets with it.
+router = DefaultRouter()
+router.register(r'user', UserController.UserViewSet)
+
+# The API URLs are now determined automatically by the router.
+urlpatterns += [
+    path('', include(router.urls)),
+]

@@ -12,6 +12,9 @@ class Employee(models.Model):
     def __str__(self):
         return self.first_name
 
+    class Meta:
+        ordering = ['full_name']
+
 class Help(models.Model):
     mentee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     help_discription = models.CharField(max_length=300)
@@ -28,29 +31,13 @@ class Response(models.Model):
 
     def __str__(self):
         return self.response_discription
-#Adding org chart models 
-class Organization(models.Model):
-     org_id = models.CharField(max_length =30)
-     org_name = models.CharField(max_length =30)
-     org_description = models.TextField(max_length=300)
-
-     def __str__(self):
-         return self.org_name
-
-class Department(models.Model):
-    department_name = models.CharField(max_length =30)
-    department_description =models.TextField(max_length=500)
-    department = models.ForeignKey(Organization, on_delete=models.CASCADE)
     
-    def __str__(self):
-       return self.department_name
 
 class Team(models.Model):
-   # team_id  = models.CharField(max_length=50)
+    team_id  = models.CharField(max_length=50)
     team_name = models.CharField(max_length=50)
     leader = models.ForeignKey(Employee, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now=False, auto_now_add=False)
-    team = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.team_name
@@ -84,6 +71,24 @@ class GoalProgress(models.Model):
     def __str__(self):
         return self.progress_discription
     
+#Adding org chart models 
+class Organization(models.Model):
+     org_id = models.CharField(max_length =30)
+     org_name = models.CharField(max_length =30)
+     org_description = models.TextField(max_length=300)
+
+     def __str__(self):
+         return self.org_name
+
+class Department(models.Model):
+    department_name = models.CharField(max_length =30)
+    department_description =models.TextField(max_length=500)
+    department = models.ForeignKey(Organization, on_delete=models.CASCADE)
+
+    def __str__(self):
+       return self.department_name
+
+
 class Hierarchy(models.Model):
     #hierarchy_id = models.CharField(max_length =30)
     hierarchy_name = models.CharField(max_length =30)
