@@ -1,7 +1,7 @@
 from TeamWork.models import GoalProgress
 from TeamWork.serializers.goalProgressSerializer import GoalProgressSerializer
 # class-based views
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -42,7 +42,7 @@ class GoalProgressDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-            return Response(goalProgress.errors, status = status.HTTP_400_CREATED)
+        return Response(goalProgress.errors, status = status.HTTP_400_CREATED)
 
     def delete(self, request, pk):
         goalProgress = self.get_object(pk)

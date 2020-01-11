@@ -1,53 +1,7 @@
 from TeamWork.models import Hierarchy
 from TeamWork.serializers.hierarchySerializer import HierarchySerializer
-# ****** #
-
-
-# mixins based --> model-backed API views
-from rest_framework import mixins
-from rest_framework import generics
-
-class HierarchyList(mixins.ListModelMixin,
-                  mixins.CreateModelMixin,
-                  generics.GenericAPIView):
-    queryset = Hierarchy.objects.all()
-    serializer_class = HierarchySerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-
-class HierarchyDetail(mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
-                    generics.GenericAPIView):
-    queryset = Hierarchy.objects.all()
-    serializer_class = HierarchySerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-
-
-
-
-
-
-
-
-
-from TeamWork.models import Hierarchy
-from TeamWork.serializers.hierarchySerializer import HierarchySerializer
 # class-based views
-from django.http import Http404
+from django.http import Http404,HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -88,7 +42,7 @@ class HierarchyDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-            return Response(hierarchy.errors, status = status.HTTP_400_CREATED)
+        return Response(hierarchy.errors, status = status.HTTP_400_CREATED)
 
     def delete(self, request, pk):
         hierarchy = self.get_object(pk)

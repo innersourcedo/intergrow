@@ -1,7 +1,7 @@
 from TeamWork.models import TeamEmployee
 from TeamWork.serializers.teamEmployeeSerializer import TeamEmployeeSerializer
 # class-based views
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -42,7 +42,7 @@ class TeamEmployeeDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-            return Response(teamEmployee.errors, status = status.HTTP_400_CREATED)
+        return Response(teamEmployee.errors, status = status.HTTP_400_CREATED)
 
     def delete(self, request, pk):
         teamEmployee = self.get_object(pk)
