@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .controller import TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController, TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController, OrgRoleController, UserController
+from .controller import TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController, TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController, OrgRoleController, UserController, SampleController
 
 urlpatterns = [
 # url deal with templates
@@ -54,6 +54,9 @@ urlpatterns = [
     # user authontication/********************************************
     # path('user/', UserController.UserList.as_view()),
     # path('user/<int:pk>', UserController.UserDetail.as_view()),
+
+    
+    path('samples_temp_employee/', SampleController.SampleTeamEmployeeList.as_view()),
     
 ]
 
