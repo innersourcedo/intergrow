@@ -18,37 +18,37 @@ urlpatterns = [
 
 # APIs
 # class-based view ==> APIView wrapper used
-    path('employee/', EmployeeController.EmployeeList.as_view()),
+    path('employees/', EmployeeController.EmployeeList.as_view()),
     path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
 
-    path('team/', TeamController.TeamList.as_view()),
+    path('teams/', TeamController.TeamList.as_view()),
     path('team/<int:pk>', TeamController.TeamDetail.as_view()),
 
-    path('help/', HelpController.HelpList.as_view()),
+    path('helps/', HelpController.HelpList.as_view()),
     path('help/<int:pk>', HelpController.HelpDetail.as_view()),
 
-    path('response/', ResponseController.ResponseList.as_view()),
+    path('responses/', ResponseController.ResponseList.as_view()),
     path('response/<int:pk>', ResponseController.ResponseDetail.as_view()),
 
-    path('team_employee/', TeamEmployeeController.TeamEmployeeList.as_view()),
+    path('team_employees/', TeamEmployeeController.TeamEmployeeList.as_view()),
     path('team_employee/<int:pk>', TeamEmployeeController.TeamEmployeeDetail.as_view()),
 
-    path('team_goal/', TeamGoalController.TeamGoalList.as_view()),
+    path('team_goals/', TeamGoalController.TeamGoalList.as_view()),
     path('team_goal/<int:pk>', TeamGoalController.TeamGoalDetail.as_view()),
     
-    path('goal_progress/', GoalProgressController.GoalProgressList.as_view()),
+    path('goal_progresses/', GoalProgressController.GoalProgressList.as_view()),
     path('goal_progress/<int:pk>', GoalProgressController.GoalProgressDetail.as_view()),
 
-    path('organization/', OrganizationController.OrganizationList.as_view()),
+    path('organizations/', OrganizationController.OrganizationList.as_view()),
     path('organization/<int:pk>', OrganizationController.OrganizationDetail.as_view()),
  
-    path('department/', DepartmentController.DepartmentList.as_view()),
+    path('departments/', DepartmentController.DepartmentList.as_view()),
     path('department/<int:pk>', DepartmentController.DepartmentDetail.as_view()),
 
-    path('hierarchy/', HierarchyController.HierarchyList.as_view()),
+    path('hierarchies/', HierarchyController.HierarchyList.as_view()),
     path('hierarchy/<int:pk>', HierarchyController.HierarchyDetail.as_view()),
 
-    path('org_role/', OrgRoleController.OrgRoleList.as_view()),
+    path('org_roles/', OrgRoleController.OrgRoleList.as_view()),
     path('org_role/<int:pk>', OrgRoleController.OrgRoleDetail.as_view()),
 
     # user authontication/********************************************
