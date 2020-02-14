@@ -22,7 +22,8 @@ urlpatterns = [
     path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
 
     path('teams/', TeamController.TeamList.as_view()),
-    path('team/<int:pk>', TeamController.TeamDetail.as_view()),
+    path('team/<str:pk>', TeamController.TeamDetail.as_view()),
+    # path('team/<str:pk>', TeamController.TeamDetail.as_view()),
 
     path('helps/', HelpController.HelpList.as_view()),
     path('help/<int:pk>', HelpController.HelpDetail.as_view()),

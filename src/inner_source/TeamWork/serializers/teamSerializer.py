@@ -6,3 +6,5 @@ class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ['team_id', 'team_name', 'leader', 'start_date']
+
+        

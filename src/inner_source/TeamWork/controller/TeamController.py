@@ -27,7 +27,7 @@ class TeamList(APIView):
 class TeamDetail(APIView):
     def get_object(self, pk):
         try:
-            return Team.objects.get(pk = pk)
+            return Team.objects.get(team_id = pk)
         except Team.DoesNotExist:
             raise Http404
 
@@ -49,6 +49,7 @@ class TeamDetail(APIView):
         team.delete()
         return HttpResponse(status = status.HTTP_204_CREATED)
 
+# class TeamCustomDetails(APIView):
 
 
 
