@@ -1,8 +1,22 @@
 from django.urls import path
 from . import views
-from .controller import TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController, TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController, OrgRoleController, UserController, SampleController
+from .controller import UserController, TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController, TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController, OrgRoleController, UserController, SampleController
+
+
+# user Authentication**********************
+from django.conf.urls import include
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('users', UserController.UserViewSet)
 
 urlpatterns = [
+    path('', include(router.urls)),
+]
+# *****************************************
+
+
+urlpatterns += [
 # url deal with templates
     path('', views.index , name = 'index'),
     path('teamwork/employees/' , views.employees , name = 'employees'),
@@ -52,22 +66,17 @@ urlpatterns = [
     path('org_roles/', OrgRoleController.OrgRoleList.as_view()),
     path('org_role/<int:pk>', OrgRoleController.OrgRoleDetail.as_view()),
 
-    # user authontication/********************************************
-    # path('user/', UserController.UserList.as_view()),
-    # path('user/<int:pk>', UserController.UserDetail.as_view()),
-
-    
     path('samples_temp_employee/', SampleController.SampleTeamEmployeeList.as_view()),
     
 ]
 
 
 # login ****************************************************************************/
-from django.conf.urls import include
+# from django.conf.urls import include
 
-urlpatterns += [
-    path('api-auth/', include('rest_framework.urls')),
-]
+# urlpatterns += [
+#     path('api-auth/', include('rest_framework.urls')),
+# ]
 # /******************************************************/
 
 
@@ -78,18 +87,18 @@ urlpatterns += [
 # http --form POST http://127.0.0.1:8000/snippets/ code="print(123)"
 
 # url suffixed for crud operations
-from rest_framework.urlpatterns import format_suffix_patterns
-urlpatterns = format_suffix_patterns(urlpatterns)
+# from rest_framework.urlpatterns import format_suffix_patterns
+# urlpatterns = format_suffix_patterns(urlpatterns)
 # /***************************************************/
 
 # Using Routers/*********************************************************************/
-from rest_framework.routers import DefaultRouter
+# from rest_framework.routers import DefaultRouter
 
 # Create a router and register our viewsets with it.
-router = DefaultRouter()
-router.register(r'user', UserController.UserViewSet)
+# router = DefaultRouter()
+# router.register(r'user', UserController.UserViewSet)
 
 # The API URLs are now determined automatically by the router.
-urlpatterns += [
-    path('', include(router.urls)),
-]
+# urlpatterns += [
+#     path('', include(router.urls)),
+# ]

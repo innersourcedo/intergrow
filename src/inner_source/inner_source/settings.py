@@ -27,19 +27,22 @@ REST_FRAMEWORK = {
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django_extensions',
-    'clear_cache',
-    'corsheaders',
-    'rest_framework',
+INSTALLED_APPS = [    
     'TeamWork.apps.TeamworkConfig',
     # 'TeamWork',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_extensions',
+    'clear_cache',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
