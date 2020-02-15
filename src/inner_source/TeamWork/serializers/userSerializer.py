@@ -10,12 +10,12 @@ class UserSerializer(serializers.ModelSerializer):
 
         # hide unwanted presents
         # required used, when create the user password need
-        # extra_kwargs = {'password':{'write_only' : True, 'required' : True}}
+        extra_kwargs = {'password':{'write_only' : True, 'required' : False}, 'password':{'required' : False}}
 
         # override create method
         # when create the user password want to encrypt that mean validate all data
-        def create(self, validated_data):
-            user = User.objects.create_user(**validated_data)
-            # create token
-            Token.objects.create(user=user)
-            return user
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        # create token
+        Token.objects.create(user=user)
+        return user
