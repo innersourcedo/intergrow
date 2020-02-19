@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
-from .controller import UserController, TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController, TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController, OrgRoleController, UserController, SampleController
+from .controller import UserController, TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController
+from .controller import TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController
+from .controller import OrgRoleController, SampleController, DepartmentEmployeeController, TeamEmployeeController
 
 
 # user Authentication**********************
@@ -65,6 +67,13 @@ urlpatterns += [
 
     path('org_roles/', OrgRoleController.OrgRoleList.as_view()),
     path('org_role/<int:pk>', OrgRoleController.OrgRoleDetail.as_view()),
+
+    path('dep_emp/', DepartmentEmployeeController.DepartmentEmployeeList.as_view()),
+    path('dep_emp/<int:pk>', DepartmentEmployeeController.DepartmentEmployeeDetail.as_view()),
+
+    path('team_emp/', TeamEmployeeController.TeamEmployeeList.as_view()),
+    # findbyteamId
+    path('team_emp/<int:pk>', TeamEmployeeController.TeamEmployeeDetail.as_view()),
 
     path('samples_temp_employee/', SampleController.SampleTeamEmployeeList.as_view()),
     

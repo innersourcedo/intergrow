@@ -1,26 +1,29 @@
 from rest_framework import serializers
 from TeamWork.models import TeamEmployee, Employee, Team
+from TeamWork.serializers.employeeSerializer import EmployeeSerializer
+from TeamWork.serializers.teamSerializer import TeamSerializer
+
 
 
 # Here 2 method used to extract the data from database and 
 # Both methods can be work so, as per your request you can choose a method
 
-class SampleEmployeeSerializer(serializers.ModelSerializer):
+# class SampleEmployeeSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Employee
-        fields = ['employee_id', 'full_name', 'first_name', 'last_name', 'email', 'phone_number', 'address']
+#     class Meta:
+#         model = Employee
+#         fields = ['employee_id', 'full_name', 'first_name', 'last_name', 'email', 'phone_number', 'address']
 
-class SampleTeamSerializer(serializers.ModelSerializer):
+# class SampleTeamSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Team
-        fields = ['team_id', 'team_name', 'leader', 'start_date']
+#     class Meta:
+#         model = Team
+#         fields = ['team_id', 'team_name', 'leader', 'start_date']
 
 
 class SampleTeamEmployeeSerializer(serializers.ModelSerializer):
-    employee =  SampleEmployeeSerializer()
-    team = SampleTeamSerializer()
+    employee =  EmployeeSerializer()
+    team = TeamSerializer()
 
     class Meta:
         model = TeamEmployee

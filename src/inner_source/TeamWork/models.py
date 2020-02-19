@@ -51,7 +51,7 @@ class TeamEmployee(models.Model):
 
     def __str__(self):
         return self.employee.first_name
-    
+   
 
 class TeamGoal(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
@@ -106,6 +106,9 @@ class OrgRole(models.Model):
     def __str__(self):
        return self.orgRole_name
 
-
+class DepartmentEmployee(models.Model):
+    employee = models.ForeignKey(Employee, on_delete = models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    emp_role = models.CharField(max_length = 50)
      
  
