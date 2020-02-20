@@ -27,7 +27,7 @@ class TeamList(APIView):
 class TeamDetail(APIView):
     def get_object(self, pk):
         try:
-            return Team.objects.get(team_id = pk)
+            return Team.objects.get(pk = pk)
         except Team.DoesNotExist:
             raise Http404
 

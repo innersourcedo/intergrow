@@ -5,4 +5,4 @@ class GoalProgressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GoalProgress
-        fields = ['goal', 'progress_description', 'progress_date']
+        fields = ['id', 'goal', 'progress_description', 'progress_date']
