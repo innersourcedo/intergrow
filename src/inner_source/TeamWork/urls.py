@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from .controller import UserController, TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController
 from .controller import TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController
-from .controller import OrgRoleController, SampleController, DepartmentEmployeeController, TeamEmployeeController
+from .controller import OrgRoleController, SampleController, DepartmentEmployeeController, TeamEmployeeController, GroupController
 
 
 # user Authentication**********************
@@ -10,6 +10,7 @@ from django.conf.urls import include
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register('groups', GroupController.GroupViewSet)
 router.register('users', UserController.UserViewSet)
 
 urlpatterns = [
@@ -55,6 +56,8 @@ urlpatterns += [
     
     path('goal_progresses/', GoalProgressController.GoalProgressList.as_view()),
     path('goal_progress/<int:pk>', GoalProgressController.GoalProgressDetail.as_view()),
+    # custom api
+    path('goal/goal_progress/<int:goal_id>', GoalProgressController.CustomGoalProgress.as_view()),
 
     path('organizations/', OrganizationController.OrganizationList.as_view()),
     path('organization/<int:pk>', OrganizationController.OrganizationDetail.as_view()),

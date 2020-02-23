@@ -44,9 +44,11 @@ class EmployeeDetail(APIView):
             return Response(serializer.data)
             return Response(employee.errors, status = status.HTTP_400_CREATED)
 
-    def delete(self, request, pk):
+    def delete(self, request, pk, format=None):
         employee = self.get_object(pk)
-        employee.delete()
+        result = employee.delete()
+        if(result):
+            return 'employee deleted successfully'
         return HttpResponse(status = status.HTTP_204_CREATED)
 
 

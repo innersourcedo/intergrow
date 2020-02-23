@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class Permission(models.Model):
+    is_admin = models.BooleanField(default=False)
+    is_team = models.BooleanField(default=False)
+    is_user = models.BooleanField(default=True)
+
+
 class Employee(models.Model):
     employee_id = models.CharField(max_length=100 , unique = True)
     full_name = models.CharField(max_length=150 )
@@ -9,12 +16,12 @@ class Employee(models.Model):
     email = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=30)
     address = models.CharField(max_length=200)
-    user = models.ForeignKey(User, 
-            on_delete=models.CASCADE,
-            limit_choices_to={'is_staff': True},
-            blank=True,
-            null=True)
-
+    # user = models.ForeignKey(User, 
+    #         on_delete=models.CASCADE,
+    #         limit_choices_to={'is_staff': True},
+    #         blank=True,
+    #         null=True)
+    
     def __str__(self):
         return self.first_name
 
@@ -77,8 +84,7 @@ class DepartmentEmployee(models.Model):
     employee = models.ForeignKey(Employee, on_delete = models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     emp_role = models.CharField(max_length = 50)
-     
- 
+
 
 #  Team 
 class TeamEmployee(models.Model):
@@ -88,23 +94,21 @@ class TeamEmployee(models.Model):
 
     def __str__(self):
         return self.employee.first_name
-
-   
+  
 class Team(models.Model):
     team_id  = models.CharField(max_length=50)
     team_name = models.CharField(max_length=50)
     leader = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    # members = models.ForeignKey(TeamEmployee, on_delete=models.CASCADE,
-    #         blank=True,
-    #         null=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE,
-            blank=True,
-            null=True)
     start_date = models.DateField(auto_now=False, auto_now_add=False)
 
     def __str__(self):
         return self.team_name
-    
+
+class TeamAllocation(models.Model):
+    team_id  = models.CharField(max_length=50)
+    member_id  = models.CharField(max_length=50)
+    start_date = models.DateField(auto_now=False, auto_now_add=False)
+    end_date = models.DateField(auto_now=False, auto_now_add=False)
 
 class TeamGoal(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
@@ -115,7 +119,6 @@ class TeamGoal(models.Model):
     def __str__(self):
         return self.goal_discription
     
-
 class GoalProgress(models.Model):
     goal = models.ForeignKey(TeamGoal, on_delete=models.CASCADE)
     progress_description = models.CharField(max_length=300)

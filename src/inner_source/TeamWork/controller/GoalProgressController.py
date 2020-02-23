@@ -49,7 +49,19 @@ class GoalProgressDetail(APIView):
         goalProgress.delete()
         return HttpResponse(status = status.HTTP_204_CREATED)
 
-
+class CustomGoalProgress(APIView):
+    def get(self, request, goal_id, format = None):
+        """
+        List all GoalProgress, or create a new GoalProgress.
+        """
+        goalProgress = GoalProgress.objects.filter(goal=goal_id)
+        serializer = GoalProgressSerializer(goalProgress, many=True)
+        return Response(serializer.data)
+    
+    # def get(self, request, goal_id, format = None):
+    #     goalProgress = self.get_object(goal_id)
+    #     serializer = GoalProgressSerializer(goalProgress)
+    #     return Response(serializer.data)
 
 
 
