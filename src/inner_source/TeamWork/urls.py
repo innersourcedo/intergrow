@@ -10,7 +10,7 @@ from django.conf.urls import include
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('groups', GroupController.GroupViewSet)
+# router.register('groups', GroupController.GroupList)
 router.register('users', UserController.UserViewSet)
 
 urlpatterns = [
@@ -22,6 +22,7 @@ urlpatterns = [
 urlpatterns += [
 # url deal with templates
     path('', views.index , name = 'index'),
+    
     path('teamwork/employees/' , views.employees , name = 'employees'),
     path('teamwork/employees/<int:employee_id>' , views.employeeDiscription, name = 'employeeDiscription'),
     
@@ -35,6 +36,8 @@ urlpatterns += [
 
 # APIs
 # class-based view ==> APIView wrapper used
+    path('groups/', GroupController.GroupList.as_view()),
+
     path('employees/', EmployeeController.EmployeeList.as_view()),
     path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
 
