@@ -10,10 +10,11 @@ from TeamWork.serializers.groupSerializer import GroupSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
-    groups = GroupSerializer()
+    # groups = GroupSerializer()
     class Meta:
         model = User
-        fields = ['username', 'password','first_name', 'last_name', 'email', 'is_staff', 'is_superuser','groups']
+        fields = ['id','username', 'password','first_name', 'last_name', 'email', 'is_staff', 'is_superuser']
+        # removed groups
 
         # hide unwanted presents
         # required used, when create the user password need

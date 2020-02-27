@@ -3,6 +3,7 @@ from . import views
 from .controller import UserController, TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController
 from .controller import TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController
 from .controller import OrgRoleController, SampleController, DepartmentEmployeeController, TeamEmployeeController, GroupController
+from .controller import IndividualGoalController, IndividualGoalProgressController
 
 
 # user Authentication**********************
@@ -23,6 +24,7 @@ urlpatterns += [
 # url deal with templates
     path('', views.index , name = 'index'),
     
+    
     path('teamwork/employees/' , views.employees , name = 'employees'),
     path('teamwork/employees/<int:employee_id>' , views.employeeDiscription, name = 'employeeDiscription'),
     
@@ -37,6 +39,8 @@ urlpatterns += [
 # APIs
 # class-based view ==> APIView wrapper used
     path('groups/', GroupController.GroupList.as_view()),
+
+    path('users/<str:username>', UserController.CustomUserGetByUsername.as_view()),    
 
     path('employees/', EmployeeController.EmployeeList.as_view()),
     path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
@@ -82,6 +86,14 @@ urlpatterns += [
     path('team_emp/<int:pk>', TeamEmployeeController.TeamEmployeeDetail.as_view()),
 
     path('samples_temp_employee/', SampleController.SampleTeamEmployeeList.as_view()),
+
+
+    path('individual_goal/', IndividualGoalController.IndividualGoalList.as_view()),
+    path('individual_goal/<int:pk>', IndividualGoalController.IndividualGoalDetail.as_view()),
+
+    path('individual_goal_progress/', IndividualGoalProgressController.IndividualGoalProgressList.as_view()),
+    path('individual_goal_progress/<int:pk>', IndividualGoalProgressController.IndividualGoalProgressDetail.as_view()),
+
     
 ]
 

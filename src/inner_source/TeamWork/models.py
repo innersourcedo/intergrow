@@ -16,11 +16,10 @@ class Employee(models.Model):
     email = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=30)
     address = models.CharField(max_length=200)
-    # user = models.ForeignKey(User, 
-    #         on_delete=models.CASCADE,
-    #         limit_choices_to={'is_staff': True},
-    #         blank=True,
-    #         null=True)
+    user = models.OneToOneField(User, 
+            on_delete=models.CASCADE,
+            blank=True,
+            null=True)
     
     def __str__(self):
         return self.first_name
@@ -121,6 +120,24 @@ class TeamGoal(models.Model):
     
 class GoalProgress(models.Model):
     goal = models.ForeignKey(TeamGoal, on_delete=models.CASCADE)
+    progress_description = models.CharField(max_length=300)
+    progress_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.progress_discription
+    
+
+class IndividualGoal(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    goal_discription = models.CharField(max_length=200)
+    start_date = models.DateField(auto_now=False, auto_now_add=False)
+    end_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.goal_discription
+    
+class IndividualGoalProgress(models.Model):
+    individual_goal = models.ForeignKey(IndividualGoal, on_delete=models.CASCADE)
     progress_description = models.CharField(max_length=300)
     progress_date = models.DateField(auto_now=False, auto_now_add=False)
 
