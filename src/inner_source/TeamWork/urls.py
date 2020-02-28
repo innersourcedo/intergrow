@@ -1,10 +1,30 @@
 from django.urls import path
 from . import views
-from .controller import TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController, TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController, OrgRoleController, UserController
+from .controller import UserController, TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController
+from .controller import TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController
+from .controller import OrgRoleController, SampleController, DepartmentEmployeeController, TeamEmployeeController, GroupController
+from .controller import IndividualGoalController, IndividualGoalProgressController, TeamAllocationController
+
+
+# user Authentication**********************
+from django.conf.urls import include
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+# router.register('groups', GroupController.GroupList)
+router.register('users', UserController.UserViewSet)
 
 urlpatterns = [
+    path('', include(router.urls)),
+]
+# *****************************************
+
+
+urlpatterns += [
 # url deal with templates
     path('', views.index , name = 'index'),
+    
+    
     path('teamwork/employees/' , views.employees , name = 'employees'),
     path('teamwork/employees/<int:employee_id>' , views.employeeDiscription, name = 'employeeDiscription'),
     
@@ -18,11 +38,17 @@ urlpatterns = [
 
 # APIs
 # class-based view ==> APIView wrapper used
+    path('groups/', GroupController.GroupList.as_view()),
+
+    path('users/<str:username>', UserController.CustomUserGetByUsername.as_view()),    
+
     path('employees/', EmployeeController.EmployeeList.as_view()),
     path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
+    path('employee/user/<int:userId>', EmployeeController.GetEmployeeByUserId.as_view()),
 
     path('teams/', TeamController.TeamList.as_view()),
     path('team/<int:pk>', TeamController.TeamDetail.as_view()),
+    # path('team/<str:pk>', TeamController.TeamDetail.as_view()),
 
     path('helps/', HelpController.HelpList.as_view()),
     path('help/<int:pk>', HelpController.HelpDetail.as_view()),
@@ -33,11 +59,14 @@ urlpatterns = [
     path('team_employees/', TeamEmployeeController.TeamEmployeeList.as_view()),
     path('team_employee/<int:pk>', TeamEmployeeController.TeamEmployeeDetail.as_view()),
 
+
     path('team_goals/', TeamGoalController.TeamGoalList.as_view()),
     path('team_goal/<int:pk>', TeamGoalController.TeamGoalDetail.as_view()),
     
     path('goal_progresses/', GoalProgressController.GoalProgressList.as_view()),
     path('goal_progress/<int:pk>', GoalProgressController.GoalProgressDetail.as_view()),
+    # custom api
+    path('goal/goal_progress/<int:goal_id>', GoalProgressController.CustomGoalProgress.as_view()),
 
     path('organizations/', OrganizationController.OrganizationList.as_view()),
     path('organization/<int:pk>', OrganizationController.OrganizationDetail.as_view()),
@@ -51,19 +80,41 @@ urlpatterns = [
     path('org_roles/', OrgRoleController.OrgRoleList.as_view()),
     path('org_role/<int:pk>', OrgRoleController.OrgRoleDetail.as_view()),
 
-    # user authontication/********************************************
-    # path('user/', UserController.UserList.as_view()),
-    # path('user/<int:pk>', UserController.UserDetail.as_view()),
+    path('dep_emp/', DepartmentEmployeeController.DepartmentEmployeeList.as_view()),
+    path('dep_emp/<int:pk>', DepartmentEmployeeController.DepartmentEmployeeDetail.as_view()),
+
+    path('team_emp/', TeamEmployeeController.TeamEmployeeList.as_view()),
+    # findbyteamId
+    path('team_emp/<int:pk>', TeamEmployeeController.TeamEmployeeDetail.as_view()),
+
+    path('samples_temp_employee/', SampleController.SampleTeamEmployeeList.as_view()),
+
+
+    path('individual_goal/', IndividualGoalController.IndividualGoalList.as_view()),
+    path('individual_goal/<int:pk>', IndividualGoalController.IndividualGoalDetail.as_view()),
+    # Individual goal by employee id
+    path('individual_goal/employee/<int:empId>', IndividualGoalController.GetIndividualGoalByEmpId.as_view()),
+
+    path('individual_goal_progress/', IndividualGoalProgressController.IndividualGoalProgressList.as_view()),
+    path('individual_goal_progress/<int:pk>', IndividualGoalProgressController.IndividualGoalProgressDetail.as_view()),
+
+    path('team_employee_allocation/', TeamAllocationController.TeamAllocationList.as_view()),
+    path('team_employee_allocation/<int:pk>', TeamAllocationController.TeamAllocationDetail.as_view()),
+    # get by team id
+    path('team_employee_allocation/team/<int:teamId>', TeamAllocationController.GetTeamAllocationByTeamId.as_view()),
+
+    
+
     
 ]
 
 
 # login ****************************************************************************/
-from django.conf.urls import include
+# from django.conf.urls import include
 
-urlpatterns += [
-    path('api-auth/', include('rest_framework.urls')),
-]
+# urlpatterns += [
+#     path('api-auth/', include('rest_framework.urls')),
+# ]
 # /******************************************************/
 
 
@@ -74,18 +125,18 @@ urlpatterns += [
 # http --form POST http://127.0.0.1:8000/snippets/ code="print(123)"
 
 # url suffixed for crud operations
-from rest_framework.urlpatterns import format_suffix_patterns
-urlpatterns = format_suffix_patterns(urlpatterns)
+# from rest_framework.urlpatterns import format_suffix_patterns
+# urlpatterns = format_suffix_patterns(urlpatterns)
 # /***************************************************/
 
 # Using Routers/*********************************************************************/
-from rest_framework.routers import DefaultRouter
+# from rest_framework.routers import DefaultRouter
 
 # Create a router and register our viewsets with it.
-router = DefaultRouter()
-router.register(r'user', UserController.UserViewSet)
+# router = DefaultRouter()
+# router.register(r'user', UserController.UserViewSet)
 
 # The API URLs are now determined automatically by the router.
-urlpatterns += [
-    path('', include(router.urls)),
-]
+# urlpatterns += [
+#     path('', include(router.urls)),
+# ]

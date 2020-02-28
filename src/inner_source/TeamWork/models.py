@@ -1,4 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
+class Permission(models.Model):
+    is_admin = models.BooleanField(default=False)
+    is_team = models.BooleanField(default=False)
+    is_user = models.BooleanField(default=True)
+
 
 class Employee(models.Model):
     employee_id = models.CharField(max_length=100 , unique = True)
@@ -8,7 +16,11 @@ class Employee(models.Model):
     email = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=30)
     address = models.CharField(max_length=200)
-
+    user = models.OneToOneField(User, 
+            on_delete=models.CASCADE,
+            blank=True,
+            null=True)
+    
     def __str__(self):
         return self.first_name
 
@@ -31,46 +43,7 @@ class Response(models.Model):
 
     def __str__(self):
         return self.response_discription
-    
 
-class Team(models.Model):
-    team_id  = models.CharField(max_length=50)
-    team_name = models.CharField(max_length=50)
-    leader = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    start_date = models.DateField(auto_now=False, auto_now_add=False)
-
-    def __str__(self):
-        return self.team_name
-    
-
-class TeamEmployee(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    involved_date = models.DateField(auto_now=False, auto_now_add=False)
-    role  = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.employee.first_name
-    
-
-class TeamGoal(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    goal_discription = models.CharField(max_length=200)
-    start_date = models.DateField(auto_now=False, auto_now_add=False)
-    end_date = models.DateField(auto_now=False, auto_now_add=False)
-
-    def __str__(self):
-        return self.goal_discription
-    
-
-class GoalProgress(models.Model):
-    goal = models.ForeignKey(TeamGoal, on_delete=models.CASCADE)
-    progress_description = models.CharField(max_length=300)
-    progress_date = models.DateField(auto_now=False, auto_now_add=False)
-
-    def __str__(self):
-        return self.progress_discription
-    
 #Adding org chart models 
 class Organization(models.Model):
      org_id = models.CharField(max_length =30)
@@ -106,6 +79,68 @@ class OrgRole(models.Model):
     def __str__(self):
        return self.orgRole_name
 
+class DepartmentEmployee(models.Model):
+    employee = models.ForeignKey(Employee, on_delete = models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    emp_role = models.CharField(max_length = 50)
 
-     
- 
+
+#  Team 
+class TeamEmployee(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    involved_date = models.DateField(auto_now=False, auto_now_add=False)
+    role  = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.employee.first_name
+  
+class Team(models.Model):
+    team_id  = models.CharField(max_length=50)
+    team_name = models.CharField(max_length=50)
+    leader = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    start_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.team_name
+
+class TeamAllocation(models.Model):
+    team_id  = models.ForeignKey(Team, on_delete=models.CASCADE)
+    member_id  = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    start_date = models.DateField(auto_now=False, auto_now_add=False)
+    end_date = models.DateField(auto_now=False, auto_now_add=False)
+
+class TeamGoal(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    goal_discription = models.CharField(max_length=200)
+    start_date = models.DateField(auto_now=False, auto_now_add=False)
+    end_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.goal_discription
+    
+class GoalProgress(models.Model):
+    goal = models.ForeignKey(TeamGoal, on_delete=models.CASCADE)
+    progress_description = models.CharField(max_length=300)
+    progress_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.progress_discription
+    
+
+class IndividualGoal(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    goal_discription = models.CharField(max_length=200)
+    start_date = models.DateField(auto_now=False, auto_now_add=False)
+    end_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.goal_discription
+    
+class IndividualGoalProgress(models.Model):
+    individual_goal = models.ForeignKey(IndividualGoal, on_delete=models.CASCADE)
+    progress_description = models.CharField(max_length=300)
+    progress_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.progress_discription
+    

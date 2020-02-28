@@ -44,7 +44,7 @@ class TeamGoalDetail(APIView):
             return Response(serializer.data)
         return Response(teamGoal.errors, status = status.HTTP_400_CREATED)
 
-    def delete(self, request, pk):
+    def delete(self, request, pk, format=None):
         teamGoal = self.get_object(pk)
         teamGoal.delete()
         return HttpResponse(status = status.HTTP_204_CREATED)

@@ -49,6 +49,7 @@ class TeamDetail(APIView):
         team.delete()
         return HttpResponse(status = status.HTTP_204_CREATED)
 
+# class TeamCustomDetails(APIView):
 
 
 
