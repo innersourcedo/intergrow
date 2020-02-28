@@ -3,7 +3,7 @@ from . import views
 from .controller import UserController, TeamController, EmployeeController, HelpController, ResponseController, TeamEmployeeController
 from .controller import TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController
 from .controller import OrgRoleController, SampleController, DepartmentEmployeeController, TeamEmployeeController, GroupController
-from .controller import IndividualGoalController, IndividualGoalProgressController
+from .controller import IndividualGoalController, IndividualGoalProgressController, TeamAllocationController
 
 
 # user Authentication**********************
@@ -44,6 +44,7 @@ urlpatterns += [
 
     path('employees/', EmployeeController.EmployeeList.as_view()),
     path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
+    path('employee/user/<int:userId>', EmployeeController.GetEmployeeByUserId.as_view()),
 
     path('teams/', TeamController.TeamList.as_view()),
     path('team/<int:pk>', TeamController.TeamDetail.as_view()),
@@ -57,6 +58,7 @@ urlpatterns += [
 
     path('team_employees/', TeamEmployeeController.TeamEmployeeList.as_view()),
     path('team_employee/<int:pk>', TeamEmployeeController.TeamEmployeeDetail.as_view()),
+
 
     path('team_goals/', TeamGoalController.TeamGoalList.as_view()),
     path('team_goal/<int:pk>', TeamGoalController.TeamGoalDetail.as_view()),
@@ -90,9 +92,18 @@ urlpatterns += [
 
     path('individual_goal/', IndividualGoalController.IndividualGoalList.as_view()),
     path('individual_goal/<int:pk>', IndividualGoalController.IndividualGoalDetail.as_view()),
+    # Individual goal by employee id
+    path('individual_goal/employee/<int:empId>', IndividualGoalController.GetIndividualGoalByEmpId.as_view()),
 
     path('individual_goal_progress/', IndividualGoalProgressController.IndividualGoalProgressList.as_view()),
     path('individual_goal_progress/<int:pk>', IndividualGoalProgressController.IndividualGoalProgressDetail.as_view()),
+
+    path('team_employee_allocation/', TeamAllocationController.TeamAllocationList.as_view()),
+    path('team_employee_allocation/<int:pk>', TeamAllocationController.TeamAllocationDetail.as_view()),
+    # get by team id
+    path('team_employee_allocation/team/<int:teamId>', TeamAllocationController.GetTeamAllocationByTeamId.as_view()),
+
+    
 
     
 ]

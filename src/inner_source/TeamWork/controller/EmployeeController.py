@@ -42,7 +42,7 @@ class EmployeeDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-            return Response(employee.errors, status = status.HTTP_400_CREATED)
+        return Response(employee.errors, status = status.HTTP_400_CREATED)
 
     def delete(self, request, pk, format=None):
         employee = self.get_object(pk)
@@ -52,7 +52,11 @@ class EmployeeDetail(APIView):
         return HttpResponse(status = status.HTTP_204_CREATED)
 
 
-
+class GetEmployeeByUserId(APIView):
+    def get(self, request, userId, format = None):
+        employee = Employee.objects.get(user=userId)
+        serializer = EmployeeSerializer(employee, many=False)
+        return Response(serializer.data)
 
 
 

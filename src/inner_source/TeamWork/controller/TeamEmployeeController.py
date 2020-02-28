@@ -49,6 +49,10 @@ class TeamEmployeeDetail(APIView):
         teamEmployee.delete()
         return HttpResponse(status = status.HTTP_204_CREATED)
 
+# class FindByTeamId(APIView):
+#     def get(self, request, team_id, format = None):
+#         team_emp = TeamEmployee.objects.filter(team)
+
 
 
 

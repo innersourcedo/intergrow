@@ -104,8 +104,8 @@ class Team(models.Model):
         return self.team_name
 
 class TeamAllocation(models.Model):
-    team_id  = models.CharField(max_length=50)
-    member_id  = models.CharField(max_length=50)
+    team_id  = models.ForeignKey(Team, on_delete=models.CASCADE)
+    member_id  = models.ForeignKey(Employee, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now=False, auto_now_add=False)
     end_date = models.DateField(auto_now=False, auto_now_add=False)
 

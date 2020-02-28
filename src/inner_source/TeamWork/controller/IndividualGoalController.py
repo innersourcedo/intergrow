@@ -50,6 +50,11 @@ class IndividualGoalDetail(APIView):
         return HttpResponse(status = status.HTTP_204_CREATED)
 
 
+class GetIndividualGoalByEmpId(APIView):
+    def get(self, request, empId, format = None):
+        individual_goal = IndividualGoal.objects.filter(employee=empId)
+        serializer = IndividualGoalSerializer(individual_goal, many=True)
+        return Response(serializer.data)
 
 
 
