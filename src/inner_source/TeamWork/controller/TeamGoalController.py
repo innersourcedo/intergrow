@@ -49,6 +49,11 @@ class TeamGoalDetail(APIView):
         teamGoal.delete()
         return HttpResponse(status = status.HTTP_204_CREATED)
 
+class FindByTeamId(APIView):
+    def get(self, request, team_id, format = None):
+        teamGoal = TeamGoal.objects.filter(team = team_id)
+        serializer = TeamGoalSerializer(teamGoal, many = True)
+        return Response(serializer.data)
 
 
 

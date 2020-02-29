@@ -62,6 +62,8 @@ urlpatterns += [
 
     path('team_goals/', TeamGoalController.TeamGoalList.as_view()),
     path('team_goal/<int:pk>', TeamGoalController.TeamGoalDetail.as_view()),
+    path('team_goals/team/<int:team_id>', TeamGoalController.FindByTeamId.as_view()),
+
     
     path('goal_progresses/', GoalProgressController.GoalProgressList.as_view()),
     path('goal_progress/<int:pk>', GoalProgressController.GoalProgressDetail.as_view()),
@@ -102,6 +104,8 @@ urlpatterns += [
     path('team_employee_allocation/<int:pk>', TeamAllocationController.TeamAllocationDetail.as_view()),
     # get by team id
     path('team_employee_allocation/team/<int:teamId>', TeamAllocationController.GetTeamAllocationByTeamId.as_view()),
+    # post custom
+    path('team_employee_allocation/post/', TeamAllocationController.TeamAllocationCreate.as_view()),
 
     
 

@@ -1,5 +1,5 @@
 from TeamWork.models import TeamAllocation
-from TeamWork.serializers.teamAllocationSerializer import TeamAllocationSerializer
+from TeamWork.serializers.teamAllocationSerializer import TeamAllocationSerializer, CustomTeamAllocationSerializer
 # class-based views
 from django.http import Http404
 from rest_framework.views import APIView
@@ -61,6 +61,14 @@ class GetTeamAllocationByTeamId(APIView):
         serializer = TeamAllocationSerializer(teamAllocation, many=True)
         return Response(serializer.data)
 
+
+class TeamAllocationCreate(APIView):
+    def post(self, request, format = None):
+        serializer = CustomTeamAllocationSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_404_CREATED)
 
 
 
