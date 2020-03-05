@@ -23,8 +23,7 @@ urlpatterns = [
 urlpatterns += [
 # url deal with templates
     path('', views.index , name = 'index'),
-    
-    
+        
     path('teamwork/employees/' , views.employees , name = 'employees'),
     path('teamwork/employees/<int:employee_id>' , views.employeeDiscription, name = 'employeeDiscription'),
     
@@ -99,11 +98,14 @@ urlpatterns += [
 
     path('individual_goal_progress/', IndividualGoalProgressController.IndividualGoalProgressList.as_view()),
     path('individual_goal_progress/<int:pk>', IndividualGoalProgressController.IndividualGoalProgressDetail.as_view()),
+    path('goal/individual_goal_progress/<int:indiGoalId>', IndividualGoalProgressController.GetProgressByGoalId.as_view()),
 
     path('team_employee_allocation/', TeamAllocationController.TeamAllocationList.as_view()),
     path('team_employee_allocation/<int:pk>', TeamAllocationController.TeamAllocationDetail.as_view()),
     # get by team id
     path('team_employee_allocation/team/<int:teamId>', TeamAllocationController.GetTeamAllocationByTeamId.as_view()),
+    # get team by employee id 
+    path('team_employee_allocation/team/emp/<int:emp_id>', TeamAllocationController.GetTeamByEmployeeId.as_view()),
     # post custom
     path('team_employee_allocation/post/', TeamAllocationController.TeamAllocationCreate.as_view()),
 

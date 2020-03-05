@@ -61,6 +61,17 @@ class GetTeamAllocationByTeamId(APIView):
         serializer = TeamAllocationSerializer(teamAllocation, many=True)
         return Response(serializer.data)
 
+class GetTeamByEmployeeId(APIView):
+    def get_object(self, emp_id):
+        try:
+            return TeamAllocation.objects.filter(member_id = emp_id)
+        except TeamAllocation.DoesNotExist:
+            raise Http404
+    def get(self, request, emp_id, format = None):
+        teamAllocation = self.get_object(emp_id)
+        serializer = TeamAllocationSerializer(teamAllocation, many=True)
+        return Response(serializer.data)
+
 
 class TeamAllocationCreate(APIView):
     def post(self, request, format = None):
