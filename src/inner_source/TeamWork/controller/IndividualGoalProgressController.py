@@ -50,7 +50,17 @@ class IndividualGoalProgressDetail(APIView):
         return HttpResponse(status = status.HTTP_204_CREATED)
 
 
+class GetProgressByGoalId(APIView):
+    def get_object(self, indiGoalId):
+        try:
+            return IndividualGoalProgress.objects.filter(individual_goal = indiGoalId)
+        except IndividualGoalProgress.DoesNotExist:
+            raise Http404
 
+    def get(self, request, indiGoalId, format = None):
+        individualGoalProgress = self.get_object(indiGoalId)
+        serializer = IndividualGoalProgressSerializer(individualGoalProgress, many=True)
+        return Response(serializer.data)
 
 
 
