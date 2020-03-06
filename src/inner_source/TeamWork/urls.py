@@ -38,6 +38,7 @@ urlpatterns += [
 # APIs
 # class-based view ==> APIView wrapper used
     path('groups/', GroupController.GroupList.as_view()),
+    path('group/<int:pk>', GroupController.GroupDetail.as_view()),
 
     path('users/<str:username>', UserController.CustomUserGetByUsername.as_view()),    
 
