@@ -42,7 +42,7 @@ urlpatterns += [
     path('groups/', GroupController.GroupList.as_view()),
     path('group/<int:pk>', GroupController.GroupDetail.as_view()),
 
-    path('users/<str:username>', UserController.CustomUserGetByUsername.as_view()),   
+    path('users/name/<str:username>', UserController.CustomUserGetByUsername.as_view()),   
 
     # path('user_groups/', UserGroupsController.UserViewSet),   
  
