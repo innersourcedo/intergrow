@@ -13,7 +13,7 @@ class EmployeeList(APIView):
         """
         List all Employee, or create a new Employee.
         """
-        employee = Employee.objects.all().order_by('id')
+        employee = Employee.objects.all().order_by('-id')
         serializer = EmployeeSerializer(employee, many=True)
         return Response(serializer.data)
 
