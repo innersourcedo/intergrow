@@ -4,6 +4,7 @@ from .controller import UserController, TeamController, EmployeeController, Help
 from .controller import TeamGoalController, GoalProgressController, OrganizationController, DepartmentController, HierarchyController
 from .controller import OrgRoleController, SampleController, DepartmentEmployeeController, TeamEmployeeController, GroupController
 from .controller import IndividualGoalController, IndividualGoalProgressController, TeamAllocationController
+from .controller import RoleEmployeeController
 
 
 # user Authentication**********************
@@ -16,6 +17,7 @@ router.register('users', UserController.UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    
 ]
 # *****************************************
 
@@ -40,7 +42,10 @@ urlpatterns += [
     path('groups/', GroupController.GroupList.as_view()),
     path('group/<int:pk>', GroupController.GroupDetail.as_view()),
 
-    path('users/<str:username>', UserController.CustomUserGetByUsername.as_view()),    
+    path('users/<str:username>', UserController.CustomUserGetByUsername.as_view()),   
+
+    # path('user_groups/', UserGroupsController.UserViewSet),   
+ 
 
     path('employees/', EmployeeController.EmployeeList.as_view()),
     path('employee/<int:pk>', EmployeeController.EmployeeDetail.as_view()),
@@ -99,6 +104,7 @@ urlpatterns += [
 
     path('individual_goal_progress/', IndividualGoalProgressController.IndividualGoalProgressList.as_view()),
     path('individual_goal_progress/<int:pk>', IndividualGoalProgressController.IndividualGoalProgressDetail.as_view()),
+    # find individual goal by goalId
     path('goal/individual_goal_progress/<int:indiGoalId>', IndividualGoalProgressController.GetProgressByGoalId.as_view()),
 
     path('team_employee_allocation/', TeamAllocationController.TeamAllocationList.as_view()),
@@ -110,8 +116,11 @@ urlpatterns += [
     # post custom
     path('team_employee_allocation/post/', TeamAllocationController.TeamAllocationCreate.as_view()),
 
+    path('role_employee/', RoleEmployeeController.RoleEmployeeList.as_view()),
+    path('role_employee/<int:pk>', RoleEmployeeController.RoleEmployeeDetail.as_view()),
     
-
+    
+    # RoleEmployeeList
     
 ]
 
