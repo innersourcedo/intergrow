@@ -1,11 +1,17 @@
-from TeamWork.models import Help
+from TeamWork.models import Help,Response as Responses
 from TeamWork.serializers.helpSerializer import HelpSerializer
 # class-based views
 from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from TeamWork.serializers.responseSerializer import customResponseSerializer
 
+class RespnseFilter(APIView):
+    def get(self, request, pk, format = None):
+        responses = Responses.objects.filter(help_request = pk)
+        serializer = customResponseSerializer(responses, many=True)
+        return Response(serializer.data)
 
 
 class HelpList(APIView):

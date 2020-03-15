@@ -29,8 +29,10 @@ class Employee(models.Model):
 
 class Help(models.Model):
     mentee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    help_discription = models.CharField(max_length=300)
-    help_date = models.DateField(auto_now=False, auto_now_add=False)
+    help_topic = models.CharField(max_length=200)
+    help_discription = models.TextField()
+    help_state = models.BooleanField(default=True)
+    help_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.help_discription
@@ -39,7 +41,7 @@ class Response(models.Model):
     help_request = models.ForeignKey(Help,  on_delete=models.CASCADE)
     mentor = models.ForeignKey(Employee, on_delete=models.CASCADE)
     response_discription = models.CharField(max_length=300)
-    response_date = models.DateField(auto_now=False, auto_now_add=False)
+    response_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.response_discription

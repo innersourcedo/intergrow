@@ -51,6 +51,7 @@ urlpatterns += [
     # path('team/<str:pk>', TeamController.TeamDetail.as_view()),
 
     path('helps/', HelpController.HelpList.as_view()),
+    path('response/<int:pk>', HelpController.RespnseFilter.as_view()),
     path('help/<int:pk>', HelpController.HelpDetail.as_view()),
 
     path('responses/', ResponseController.ResponseList.as_view()),
