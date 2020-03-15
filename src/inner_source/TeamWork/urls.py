@@ -23,8 +23,7 @@ urlpatterns = [
 urlpatterns += [
 # url deal with templates
     path('', views.index , name = 'index'),
-    
-    
+        
     path('teamwork/employees/' , views.employees , name = 'employees'),
     path('teamwork/employees/<int:employee_id>' , views.employeeDiscription, name = 'employeeDiscription'),
     
@@ -39,6 +38,7 @@ urlpatterns += [
 # APIs
 # class-based view ==> APIView wrapper used
     path('groups/', GroupController.GroupList.as_view()),
+    path('group/<int:pk>', GroupController.GroupDetail.as_view()),
 
     path('users/<str:username>', UserController.CustomUserGetByUsername.as_view()),    
 
@@ -63,6 +63,8 @@ urlpatterns += [
 
     path('team_goals/', TeamGoalController.TeamGoalList.as_view()),
     path('team_goal/<int:pk>', TeamGoalController.TeamGoalDetail.as_view()),
+    path('team_goals/team/<int:team_id>', TeamGoalController.FindByTeamId.as_view()),
+
     
     path('goal_progresses/', GoalProgressController.GoalProgressList.as_view()),
     path('goal_progress/<int:pk>', GoalProgressController.GoalProgressDetail.as_view()),
@@ -98,11 +100,16 @@ urlpatterns += [
 
     path('individual_goal_progress/', IndividualGoalProgressController.IndividualGoalProgressList.as_view()),
     path('individual_goal_progress/<int:pk>', IndividualGoalProgressController.IndividualGoalProgressDetail.as_view()),
+    path('goal/individual_goal_progress/<int:indiGoalId>', IndividualGoalProgressController.GetProgressByGoalId.as_view()),
 
     path('team_employee_allocation/', TeamAllocationController.TeamAllocationList.as_view()),
     path('team_employee_allocation/<int:pk>', TeamAllocationController.TeamAllocationDetail.as_view()),
     # get by team id
     path('team_employee_allocation/team/<int:teamId>', TeamAllocationController.GetTeamAllocationByTeamId.as_view()),
+    # get team by employee id 
+    path('team_employee_allocation/team/emp/<int:emp_id>', TeamAllocationController.GetTeamByEmployeeId.as_view()),
+    # post custom
+    path('team_employee_allocation/post/', TeamAllocationController.TeamAllocationCreate.as_view()),
 
     
 

@@ -6,4 +6,4 @@ from rest_framework.authtoken.models import Token
 class GroupSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Group
-        fields = ['name']
+        fields = ['id', 'name']

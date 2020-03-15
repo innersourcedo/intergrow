@@ -9,3 +9,8 @@ class TeamAllocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeamAllocation
         fields = ['id', 'team_id', 'member_id', 'start_date', 'end_date']
+    
+class CustomTeamAllocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeamAllocation
+        fields = ['id', 'team_id', 'member_id', 'start_date', 'end_date']
