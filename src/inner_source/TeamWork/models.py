@@ -2,11 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Permission(models.Model):
+class RoleEmployee(models.Model):
+    is_sup_admin = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_team = models.BooleanField(default=False)
-    is_user = models.BooleanField(default=True)
+    is_employee = models.BooleanField(default=True)
+    role_discription = models.CharField(max_length=100 , unique = True)
 
+    def __str__(self):
+        return self.role_discription
 
 class Employee(models.Model):
     employee_id = models.CharField(max_length=100 , unique = True)
@@ -20,6 +24,7 @@ class Employee(models.Model):
             on_delete=models.CASCADE,
             blank=True,
             null=True)
+    role_employee = models.ForeignKey(RoleEmployee, blank=True, null=True, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.first_name
@@ -116,6 +121,8 @@ class TeamGoal(models.Model):
     goal_discription = models.CharField(max_length=200)
     start_date = models.DateField(auto_now=False, auto_now_add=False)
     end_date = models.DateField(auto_now=False, auto_now_add=False)
+    is_complete = models.BooleanField(default=False)
+    is_inprogress = models.BooleanField(default=True)
 
     def __str__(self):
         return self.goal_discription
@@ -134,6 +141,9 @@ class IndividualGoal(models.Model):
     goal_discription = models.CharField(max_length=200)
     start_date = models.DateField(auto_now=False, auto_now_add=False)
     end_date = models.DateField(auto_now=False, auto_now_add=False)
+    is_complete = models.BooleanField(default=False)
+    is_inprogress = models.BooleanField(default=True)
+
 
     def __str__(self):
         return self.goal_discription
@@ -145,4 +155,4 @@ class IndividualGoalProgress(models.Model):
 
     def __str__(self):
         return self.progress_discription
-    
+

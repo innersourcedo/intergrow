@@ -10,15 +10,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Permission',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_admin', models.BooleanField(default=False)),
-                ('is_team', models.BooleanField(default=False)),
-                ('is_user', models.BooleanField(default=True)),
-            ],
-        ),
+        # migrations.CreateModel(
+        #     name='Permission',
+        #     fields=[
+        #         ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #         ('is_admin', models.BooleanField(default=False)),
+        #         ('is_team', models.BooleanField(default=False)),
+        #         ('is_user', models.BooleanField(default=True)),
+        #     ],
+        # ),
         migrations.CreateModel(
             name='TeamAllocation',
             fields=[
